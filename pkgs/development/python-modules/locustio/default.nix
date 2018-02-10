@@ -2,7 +2,7 @@
 , fetchPypi
 , mock
 , unittest2
-, msgpack
+, msgpack-transitional
 , requests
 , flask
 , gevent
@@ -22,7 +22,7 @@ buildPythonPackage rec {
     sed -i s/"pyzmq=="/"pyzmq>="/ setup.py
   '';
 
-  propagatedBuildInputs = [ msgpack requests flask gevent pyzmq ];
+  propagatedBuildInputs = [ msgpack-transitional requests flask gevent pyzmq ];
   buildInputs = [ mock unittest2 ];
 
   meta = {

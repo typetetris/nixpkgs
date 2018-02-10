@@ -3636,7 +3636,7 @@ in {
 
     buildInputs = with self; [ pytest docutils ];
     propagatedBuildInputs = with self; [
-      dask six boto3 s3fs tblib locket msgpack click cloudpickle tornado
+      dask six boto3 s3fs tblib locket msgpack-transitional click cloudpickle tornado
       psutil botocore zict lz4 sortedcollections sortedcontainers
     ] ++ (if !isPy3k then [ singledispatch ] else []);
 
@@ -10569,12 +10569,29 @@ in {
   };
 
   msgpack = buildPythonPackage rec {
+    name = "msgpack-${version}";
+    version = "0.5.4";
+
+    src = pkgs.fetchurl {
+      url = "mirror://pypi/m/msgpack/${name}.tar.gz";
+      sha256 = "13ckbs2qc4dww7fddnm9cw116j4spgxqab49ijmj6jr178ypwl80";
+    };
+
+    checkPhase = ''
+      py.test
+    '';
+
+    buildInputs = with self; [ pytest ];
+    propagatedBuildInputs = with self; [ ];
+  };
+
+  msgpack-transitional = buildPythonPackage rec {
     name = "msgpack-python-${version}";
-    version = "0.4.7";
+    version = "0.5.4";
 
     src = pkgs.fetchurl {
       url = "mirror://pypi/m/msgpack-python/${name}.tar.gz";
-      sha256 = "0syd7bs83qs9qmxw540jbgsildbqk4yb57fmrlns1021llli402y";
+      sha256 = "1k848cz29mdzqfb12dn946bq8g2f1ay9zydlldc45y064b8giwy1";
     };
 
     checkPhase = ''
@@ -20432,12 +20449,12 @@ EOF
   trollius = callPackage ../development/python-modules/trollius {};
 
   neovim = buildPythonPackage rec {
-    version = "0.2.0";
+    version = "0.2.1";
     name = "neovim-${version}";
 
     src = pkgs.fetchurl {
       url = "mirror://pypi/n/neovim/${name}.tar.gz";
-      sha256 = "1ywkgbrxd95cwlglihydmffcw2d2aji6562aqncymxs3ld5y02yn";
+      sha256 = "16vzxmp7f6dl20n30j5cwwvrjj5h3c2ch8ldbss31anf36nirsdp";
     };
 
     buildInputs = with self; [ nose ];

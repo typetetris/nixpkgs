@@ -20,7 +20,7 @@ let
     wildcard=YES
     quiet=${boolToStr cfg.quiet}
     verbose=${boolToStr cfg.verbose}
-    ${lib.concatStringsSep "," cfg.domains}
+    ${lib.concatStringsSep "," (builtins.filter (x: x != "") (cfg.domains ++ [cfg.domain]))}
     ${cfg.extraConfig}
   '';
 
@@ -41,6 +41,14 @@ with lib;
         type = bool;
         description = ''
           Whether to synchronise your machine's IP address with a dynamic DNS provider (e.g. dyndns.org).
+        '';
+      };
+
+      domain = mkOption {
+        default = "";
+        type = str;
+        description = ''
+          Domain name to synchronize for backward compatibility. Will be merged with domains.
         '';
       };
 

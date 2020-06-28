@@ -920,8 +920,8 @@ in
           args = let
             mkKeyVal = opt: val: [ "-o" (opt + "=" + val) ];
             adjustSmtpTlsSecurityLevel = !(cfg.submissionsOptions ? smtpd_tls_security_level) ||
-                                      smtpd_tls_security_level == "none" ||
-                                      smtpd_tls_security_level == "may";
+                                      cfg.submissionsOptions.smtpd_tls_security_level == "none" ||
+                                      cfg.submissionsOptions.smtpd_tls_security_level == "may";
             submissionsOptions = cfg.submissionsOptions // {
               smtpd_tls_wrappermode = "yes";
             } // optionalAttrs adjustSmtpTlsSecurityLevel {
